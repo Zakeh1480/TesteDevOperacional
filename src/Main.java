@@ -205,8 +205,14 @@ public class Main {
 				}
 			} else
 				System.out.println("Senha incorreta");
+			System.out.println("************************************************************");
+			executar(usuarios, clientes, empresas, produtos, carrinho, vendas);
+			System.out.println("************************************************************");
 		} else {
 			System.out.println("Usuário não encontrado");
+			System.out.println("************************************************************");
+			executar(usuarios, clientes, empresas, produtos, carrinho, vendas);
+			System.out.println("************************************************************");
 		}
 	}
 
