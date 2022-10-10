@@ -34,3 +34,5 @@ AJUSTES E MELHORIAS DO CÓDIGO.
 
 
 ------------------------------------------------------------------------------------------------------------------------------------
+
+OS MÉTODOS SERIAM MELHORES SE SEGUISSEM O PADRÃO SOLID, ONDE UM MÉTODO FICARIA RESPONSAVEL POR UMA COISA, EVITANDO DEIXAR TODA A LÓGICA EM UM SÓ MÉTODO.
