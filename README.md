@@ -17,7 +17,7 @@ AJUSTES E MELHORIAS DO CÓDIGO.
  
 ------------------------------------------------------------------------------------------------------------------------------------
 
-- ANTES VALIDAVA SOMENTE SE O USUÁRIO LOGADO ERA UMA EMPRESA, MAS O CORRETO ERA VALIDAR SE O USUÁRIO ERA UMA EMPRESA OU UM ADMIN
+- ANTES VALIDAVA SOMENTE SE O USUÁRIO LOGADO ERA UMA EMPRESA, MAS O CORRETO ERA VALIDAR SE O USUÁRIO ERA UMA EMPRESA OU UM ADMIN.
 ![image](https://user-images.githubusercontent.com/74841014/194927586-d196e964-3a27-4104-8724-1503b2802e00.png)
 
 ------------------------------------------------------------------------------------------------------------------------------------
