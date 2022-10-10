@@ -90,9 +90,12 @@ public class Main {
 									System.out.printf(x.getId() + " - " + x.getNome() + "    R$%.2f", x.getPreco());
 								});
 								System.out.printf("Total Venda: R$%.2f", venda.getValor());
+								System.out.println();
 								System.out.printf("Total Taxa a ser paga: R$%.2f", venda.getComissaoSistema());
+								System.out.println();
 								System.out.printf("Total Líquido  para empresa: R$%.2f",
 										(venda.getValor() - venda.getComissaoSistema()));
+								System.out.println();
 								System.out.println("************************************************************");
 							}
 						});
@@ -129,7 +132,7 @@ public class Main {
 					}
 
 				} else {
-					System.out.println("1 - Relizar Compras");
+					System.out.println("1 - Realizar Compras");
 					System.out.println("2 - Ver Compras");
 					System.out.println("0 - Deslogar");
 					Integer escolha = sc.nextInt();
@@ -159,7 +162,8 @@ public class Main {
 						System.out.println("Resumo da compra: ");
 						carrinho.stream().forEach(x -> {
 							if (x.getEmpresa().getId().equals(escolhaEmpresa)) {
-								System.out.printf(x.getId() + " - " + x.getNome() + "    R$%.2f", x.getPreco());
+								System.out.printf(x.getId() + " - " + x.getNome() + " R$%.2f", x.getPreco());
+								System.out.println();
 							}
 						});
 						Empresa empresaEscolhida = empresas.stream().filter(x -> x.getId().equals(escolhaEmpresa))
@@ -169,6 +173,7 @@ public class Main {
 								.collect(Collectors.toList()).get(0);
 						Venda venda = criarVenda(carrinho, empresaEscolhida, clienteLogado, vendas);
 						System.out.printf("Total: R$%.2f", venda.getValor());
+						System.out.println();
 						System.out.println("************************************************************");
 						carrinho.clear();
 						executar(usuarios, clientes, empresas, produtos, carrinho, vendas);
