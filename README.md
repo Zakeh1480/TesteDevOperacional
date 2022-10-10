@@ -30,6 +30,7 @@ AJUSTES E MELHORIAS DO CÓDIGO.
 - REMOVI O STREAM().TOLIST POIS JÁ É DECLARADO COMO PARÂMETRO.
 - O VALOR QUE ESTAVA SENDO PASSADO NA INSTÂNCIA DD OBJETO 'VENDA' ERA O VALOR DA SOMA DOS PRODUTOS
 - PARA ISSO CRIEI UMA OUTRA VARIÁVEL, ONDE SOMO O VALOR DOS PRODUTOS E DA COMISSÃO.
-![image](https://user-images.githubusercontent.com/74841014/194928230-3176276d-7dc5-4de0-b703-d0d9ea48bd89.png)
+![image](https://user-images.githubusercontent.com/74841014/194942259-85009fb8-1dc7-48f6-b27b-e11257de32d7.png)
+
 
 ------------------------------------------------------------------------------------------------------------------------------------
