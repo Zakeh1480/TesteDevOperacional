@@ -77,6 +77,7 @@ public class Main {
 					Integer escolha = sc.nextInt();
 
 					switch (escolha) {
+
 					case 1: {
 						System.out.println();
 						System.out.println("************************************************************");
@@ -109,18 +110,20 @@ public class Main {
 						System.out.println();
 						System.out.println("************************************************************");
 						System.out.println("MEUS PRODUTOS");
+						System.out.println("************************************************************");
 						produtos.stream().forEach(produto -> {
 							if (produto.getEmpresa().getId().equals(usuarioLogado.getEmpresa().getId())) {
-								System.out.println("************************************************************");
 								System.out.println("Código: " + produto.getId());
 								System.out.println("Produto: " + produto.getNome());
 								System.out.println("Quantidade em estoque: " + produto.getQuantidade());
 								System.out.printf("Valor: R$%.2f", produto.getPreco());
+								System.out.println();
 								System.out.println("************************************************************");
 							}
 
 						});
 						System.out.printf("Saldo Empresa: %.2f", usuarioLogado.getEmpresa().getSaldo());
+						System.out.println();
 						System.out.println("************************************************************");
 
 						executar(usuarios, clientes, empresas, produtos, carrinho, vendas);
@@ -188,8 +191,9 @@ public class Main {
 								System.out.println("Compra de código: " + venda.getCódigo() + " na empresa "
 										+ venda.getEmpresa().getNome() + ": ");
 								venda.getItens().stream().forEach(x -> {
-									System.out.printf(x.getId() + " - " + x.getNome() + "    R$%.2f", x.getPreco());
+									System.out.printf(x.getId() + " - " + x.getNome() + " R$%.2f", x.getPreco());
 								});
+								System.out.println();
 								System.out.printf("Total: R$%.2f", venda.getValor());
 								System.out.println("************************************************************");
 							}
@@ -221,7 +225,7 @@ public class Main {
 		Double comissaoSistema = valor * empresa.getTaxa();
 		Double valorTotal = valor + comissaoSistema;
 		int idVenda = vendas.isEmpty() ? 1 : vendas.get(vendas.size() - 1).getCódigo() + 1;
-		empresa.setSaldo(empresa.getSaldo() + valorTotal);
+		empresa.setSaldo(valor);
 		Venda venda = new Venda(idVenda, carrinho, valorTotal, comissaoSistema, empresa, cliente);
 		vendas.add(venda);
 		return venda;
