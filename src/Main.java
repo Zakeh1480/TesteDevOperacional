@@ -13,8 +13,8 @@ public class Main {
 		List<Produto> carrinho = new ArrayList<Produto>();
 		List<Venda> vendas = new ArrayList<Venda>();
 
-		Empresa empresa = new Empresa(2, "SafeWay Padaria", "30021423000159", 0.15, 0.0);
-		Empresa empresa2 = new Empresa(1, "Level Varejo", "53239160000154", 0.05, 0.0);
+		Empresa empresa = new Empresa(1, "SafeWay Padaria", "30021423000159", 0.15, 0.0);
+		Empresa empresa2 = new Empresa(2, "Level Varejo", "53239160000154", 0.05, 0.0);
 		Empresa empresa3 = new Empresa(3, "SafeWay Restaurante", "41361511000116", 0.20, 0.0);
 
 		Produto produto = new Produto(1, "Pão Frances", 5, 3.50, empresa);
@@ -31,15 +31,20 @@ public class Main {
 		Cliente cliente = new Cliente("07221134049", "Allan da Silva", "cliente", 20);
 		Cliente cliente2 = new Cliente("72840700050", "Samuel da Silva", "cliente2", 24);
 
-		Usuario usuario1 = new Usuario("admin", "1234", null, null);
 		Usuario usuario2 = new Usuario("empresa", "1234", null, empresa);
+		Usuario usuario1 = new Usuario("admin", "1234", null, empresa);
+
 		Usuario usuario3 = new Usuario("cliente", "1234", cliente, null);
 		Usuario usuario4 = new Usuario("cliente2", "1234", cliente2, null);
+
 		Usuario usuario5 = new Usuario("empresa2", "1234", null, empresa2);
+		Usuario usuario8 = new Usuario("admin2", "1234", null, empresa2);
+
 		Usuario usuario6 = new Usuario("empresa3", "1234", null, empresa3);
+		Usuario usuario7 = new Usuario("admin3", "1234", null, empresa3);
 
-
-		List<Usuario> usuarios = Arrays.asList(usuario1, usuario2, usuario3, usuario4, usuario5, usuario6);
+		List<Usuario> usuarios = Arrays.asList(usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7,
+				usuario8);
 		List<Cliente> clientes = Arrays.asList(cliente, cliente2);
 		List<Empresa> empresas = Arrays.asList(empresa, empresa2, empresa3);
 		List<Produto> produtos = Arrays.asList(produto, produto2, produto3, produto4, produto5, produto6, produto7,
@@ -56,16 +61,16 @@ public class Main {
 		String username = sc.next();
 		System.out.print("Senha: ");
 		String senha = sc.next();
-		
 
 		List<Usuario> usuariosSearch = usuarios.stream().filter(x -> x.getUsername().equals(username))
 				.collect(Collectors.toList());
-		if (usuariosSearch.size() > 0) {
+
+		if (!usuariosSearch.isEmpty()) {
 			Usuario usuarioLogado = usuariosSearch.get(0);
 			if ((usuarioLogado.getSenha().equals(senha))) {
 
 				System.out.println("Escolha uma opção para iniciar");
-				if (usuarioLogado.IsEmpresa()) {
+				if (usuarioLogado.IsAdmin() || usuarioLogado.IsEmpresa()) {
 					System.out.println("1 - Listar vendas");
 					System.out.println("2 - Ver produtos");
 					System.out.println("0 - Deslogar");
@@ -82,17 +87,17 @@ public class Main {
 								System.out.println("Venda de código: " + venda.getCódigo() + " no CPF "
 										+ venda.getCliente().getCpf() + ": ");
 								venda.getItens().stream().forEach(x -> {
-									System.out.println(x.getId() + " - " + x.getNome() + "    R$" + x.getPreco());
+									System.out.printf(x.getId() + " - " + x.getNome() + "    R$%.2f", x.getPreco());
 								});
-								System.out.println("Total Venda: R$" + venda.getValor());
-								System.out.println("Total Taxa a ser paga: R$" + venda.getComissaoSistema());
-								System.out.println("Total Líquido  para empresa"
-										+ (venda.getValor() - venda.getComissaoSistema()));
+								System.out.printf("Total Venda: R$%.2f", venda.getValor());
+								System.out.printf("Total Taxa a ser paga: R$%.2f", venda.getComissaoSistema());
+								System.out.printf("Total Líquido  para empresa: R$%.2f",
+										(venda.getValor() - venda.getComissaoSistema()));
 								System.out.println("************************************************************");
 							}
-
 						});
-						System.out.println("Saldo Empresa: " + usuarioLogado.getEmpresa().getSaldo());
+						System.out.printf("Saldo Empresa: %.2f", usuarioLogado.getEmpresa().getSaldo());
+						System.out.println();
 						System.out.println("************************************************************");
 
 						executar(usuarios, clientes, empresas, produtos, carrinho, vendas);
@@ -107,12 +112,12 @@ public class Main {
 								System.out.println("Código: " + produto.getId());
 								System.out.println("Produto: " + produto.getNome());
 								System.out.println("Quantidade em estoque: " + produto.getQuantidade());
-								System.out.println("Valor: R$" + produto.getPreco());								
+								System.out.printf("Valor: R$%.2f", produto.getPreco());
 								System.out.println("************************************************************");
 							}
 
 						});
-						System.out.println("Saldo Empresa: " + usuarioLogado.getEmpresa().getSaldo());
+						System.out.printf("Saldo Empresa: %.2f", usuarioLogado.getEmpresa().getSaldo());
 						System.out.println("************************************************************");
 
 						executar(usuarios, clientes, empresas, produtos, carrinho, vendas);
@@ -154,7 +159,7 @@ public class Main {
 						System.out.println("Resumo da compra: ");
 						carrinho.stream().forEach(x -> {
 							if (x.getEmpresa().getId().equals(escolhaEmpresa)) {
-								System.out.println(x.getId() + " - " + x.getNome() + "    R$" + x.getPreco());
+								System.out.printf(x.getId() + " - " + x.getNome() + "    R$%.2f", x.getPreco());
 							}
 						});
 						Empresa empresaEscolhida = empresas.stream().filter(x -> x.getId().equals(escolhaEmpresa))
@@ -163,7 +168,7 @@ public class Main {
 								.filter(x -> x.getUsername().equals(usuarioLogado.getUsername()))
 								.collect(Collectors.toList()).get(0);
 						Venda venda = criarVenda(carrinho, empresaEscolhida, clienteLogado, vendas);
-						System.out.println("Total: R$" + venda.getValor());
+						System.out.printf("Total: R$%.2f", venda.getValor());
 						System.out.println("************************************************************");
 						carrinho.clear();
 						executar(usuarios, clientes, empresas, produtos, carrinho, vendas);
@@ -178,9 +183,9 @@ public class Main {
 								System.out.println("Compra de código: " + venda.getCódigo() + " na empresa "
 										+ venda.getEmpresa().getNome() + ": ");
 								venda.getItens().stream().forEach(x -> {
-									System.out.println(x.getId() + " - " + x.getNome() + "    R$" + x.getPreco());
+									System.out.printf(x.getId() + " - " + x.getNome() + "    R$%.2f", x.getPreco());
 								});
-								System.out.println("Total: R$" + venda.getValor());
+								System.out.printf("Total: R$%.2f", venda.getValor());
 								System.out.println("************************************************************");
 							}
 
@@ -190,12 +195,9 @@ public class Main {
 					}
 					case 0: {
 						executar(usuarios, clientes, empresas, produtos, carrinho, vendas);
-
 					}
-
 					}
 				}
-
 			} else
 				System.out.println("Senha incorreta");
 		} else {
@@ -204,11 +206,12 @@ public class Main {
 	}
 
 	public static Venda criarVenda(List<Produto> carrinho, Empresa empresa, Cliente cliente, List<Venda> vendas) {
-		Double total = carrinho.stream().mapToDouble(Produto::getPreco).sum();
-		Double comissaoSistema = total * empresa.getTaxa();
+		Double valor = carrinho.stream().mapToDouble(Produto::getPreco).sum();
+		Double comissaoSistema = valor * empresa.getTaxa();
+		Double valorTotal = valor + comissaoSistema;
 		int idVenda = vendas.isEmpty() ? 1 : vendas.get(vendas.size() - 1).getCódigo() + 1;
-		Venda venda = new Venda(idVenda, carrinho.stream().toList(), total, comissaoSistema, empresa, cliente);
-		empresa.setSaldo(empresa.getSaldo() + total);
+		empresa.setSaldo(empresa.getSaldo() + valorTotal);
+		Venda venda = new Venda(idVenda, carrinho, valorTotal, comissaoSistema, empresa, cliente);
 		vendas.add(venda);
 		return venda;
 	}

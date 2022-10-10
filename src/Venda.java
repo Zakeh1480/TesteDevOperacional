@@ -8,7 +8,8 @@ public class Venda {
 	private Empresa empresa;
 	private Cliente cliente;
 
-	public Venda(Integer código, List<Produto> itens, Double valor, Double comissaoSistema, Empresa empresa, Cliente cliente) {
+	public Venda(Integer código, List<Produto> itens, Double valor, Double comissaoSistema, Empresa empresa,
+			Cliente cliente) {
 		super();
 		this.código = código;
 		this.itens = itens;
@@ -25,8 +26,6 @@ public class Venda {
 	public Integer getCódigo() {
 		return código;
 	}
-	
-	
 
 	public Empresa getEmpresa() {
 		return empresa;

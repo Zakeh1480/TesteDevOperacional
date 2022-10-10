@@ -6,7 +6,7 @@ public class Produto {
 	private Double preco;
 	private Empresa empresa;
 
-	public Produto(Integer id,String nome, Integer quantidade, Double preco, Empresa empresa) {
+	public Produto(Integer id, String nome, Integer quantidade, Double preco, Empresa empresa) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -19,8 +19,6 @@ public class Produto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 	public Integer getId() {
 		return id;
